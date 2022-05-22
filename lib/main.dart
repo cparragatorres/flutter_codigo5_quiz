@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_codigo5_quiz/question.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,29 +17,39 @@ class MyApp extends StatelessWidget {
 }
 
 class QuizPage extends StatefulWidget {
-
   @override
   State<QuizPage> createState() => _QuizPageState();
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<String>questions = [
-    "El hombre llegó a la luna?",
-    "La tierra es plana?",
-    "Desayunaron?",
-  ];
+  // List<String> questions = [
+  //   "El hombre llegó a la luna?",
+  //   "La tierra es plana?",
+  //   "Desayunaron?",
+  // ];
+  //
+  // List<bool> answer = [
+  //   true,
+  //   false,
+  //   true,
+  // ];
 
-  List<bool>answer = [
-    false,
-    false,
-    true,
+  List<Question> questions = [
+    Question(questionText: "¿El hombre llegó a la luna?", questionAnswer: true),
+    Question(questionText: "¿El mar es azul?", questionAnswer: false),
+    Question(questionText: "¿El koala es un oso?", questionAnswer: false),
+    Question(questionText: "¿Las arañas son insectos?", questionAnswer: false),
+    Question(questionText: "¿O3 es oxígeno?", questionAnswer: false),
+    Question(questionText: "¿Todas las palabras agudas llevan tilde?", questionAnswer: false),
+    Question(questionText: "¿Todas las palabras esdrújulas llevan tilde?", questionAnswer: true),
+    Question(questionText: "¿Albert Einstein dijo que la cuarta guerra mundial se lucharía con piedras?", questionAnswer: true),
+    Question(questionText: "¿Instagram es la red social más usada del mundo?", questionAnswer: false),
+    Question(questionText: "¿Las plantas se reproducen?", questionAnswer: true),
   ];
 
   int questionNumber = 0;
 
-  List<Icon> scoreKeeper = [
-
-  ];
+  List<Icon> scoreKeeper = [];
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
             flex: 5,
             child: Center(
               child: Text(
-                questions[questionNumber],
+                questions[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24.0, color: Colors.white),
               ),
@@ -69,17 +80,24 @@ class _QuizPageState extends State<QuizPage> {
                 color: const Color(0xff00e187),
                 child: const Text("Verdadero"),
                 onPressed: () {
-
-                  bool correctAnswer = answer[questionNumber];
-                  if(correctAnswer == true){
-                    scoreKeeper.add(Icon(Icons.check, color: const Color(0xff00e187),),);
-                  }else {
-                    scoreKeeper.add(Icon(Icons.close, color: const Color(0xfff62d63),),);
+                  bool correctAnswer = questions[questionNumber].questionAnswer;
+                  if (correctAnswer == true) {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.check,
+                        color: const Color(0xff00e187),
+                      ),
+                    );
+                  } else {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.close,
+                        color: const Color(0xfff62d63),
+                      ),
+                    );
                   }
-                  setState((){
-
-                  });
-
+                  questionNumber++;
+                  setState(() {});
                 },
               ),
             ),
@@ -90,7 +108,26 @@ class _QuizPageState extends State<QuizPage> {
               child: MaterialButton(
                 color: const Color(0xfff62d63),
                 child: const Text("Falso"),
-                onPressed: () {},
+                onPressed: () {
+                  bool correctAnswer = questions[questionNumber].questionAnswer;
+                  if (correctAnswer == true) {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.close,
+                        color: const Color(0xfff62d63),
+                      ),
+                    );
+                  } else {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.check,
+                        color: const Color(0xff00e187),
+                      ),
+                    );
+                  }
+                  questionNumber++;
+                  setState(() {});
+                },
               ),
             ),
           ),
