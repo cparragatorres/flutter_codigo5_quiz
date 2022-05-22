@@ -26,12 +26,13 @@ class _QuizPageState extends State<QuizPage> {
 
   QuizBrain matasquita = QuizBrain();
 
-  int questionNumber = 0;
-
   List<Icon> scoreKeeper = [];
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       backgroundColor: Color(0xff272c2f),
       appBar: AppBar(
@@ -46,7 +47,7 @@ class _QuizPageState extends State<QuizPage> {
             flex: 5,
             child: Center(
               child: Text(
-                matasquita.questions[questionNumber].questionText,
+                matasquita.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24.0, color: Colors.white),
               ),
@@ -59,7 +60,8 @@ class _QuizPageState extends State<QuizPage> {
                 color: const Color(0xff00e187),
                 child: const Text("Verdadero"),
                 onPressed: () {
-                  bool correctAnswer = matasquita.questions[questionNumber].questionAnswer;
+                  bool correctAnswer = matasquita.getQuestionAnswer();
+
                   if (correctAnswer == true) {
                     scoreKeeper.add(
                       Icon(
@@ -75,7 +77,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                     );
                   }
-                  questionNumber++;
+                  matasquita.nextQuestion();
                   setState(() {});
                 },
               ),
@@ -88,7 +90,8 @@ class _QuizPageState extends State<QuizPage> {
                 color: const Color(0xfff62d63),
                 child: const Text("Falso"),
                 onPressed: () {
-                  bool correctAnswer = matasquita.questions[questionNumber].questionAnswer;
+                  bool correctAnswer = matasquita.getQuestionAnswer();
+
                   if (correctAnswer == true) {
                     scoreKeeper.add(
                       Icon(
@@ -104,7 +107,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                     );
                   }
-                  questionNumber++;
+                  matasquita.nextQuestion();
                   setState(() {});
                 },
               ),
